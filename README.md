@@ -4,7 +4,7 @@ Node JS project using Mongoose Module
 - git clone git@github.com:rajesh612/NodeJS-Mongoose.git
 
 ## Install Node Modules
-- cd NodeJs-Mongoose
+- cd NodeJS-Mongoose
 - npm install
 
 ## Steps to Run
