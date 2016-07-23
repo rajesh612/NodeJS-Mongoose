@@ -25,7 +25,7 @@ module.exports.saveContact = function(savableContact, callback){
 
 module.exports.updateContact = function (contactID, updatedContact, callback) {
 
-    Contact.findByIdAndUpdate(contactID, { firstname: updatedContact.firstname, lastname: updatedContact.lastname, email: updatedContact.email }, function(err, contact) {
+    Contact.findByIdAndUpdate(contactID, { firstname: updatedContact.firstname, lastname: updatedContact.lastname, email: updatedContact.email, telephone: updatedContact.telephone, city: updatedContact.city }, function(err, contact) {
         if (err) throw err;
         updatedContact._id = contact._id;
         console.log("====updated contact=====");
@@ -54,4 +54,52 @@ module.exports.findContactById = function(id,callback){
         if (err) throw err;
         callback(contact);
     });
+}
+
+module.exports.findContactByCity = function (city,callback) {
+    var newObj,
+        foundContacts =[];
+    Contact.find({}).where('city').eq(city).exec(function (err,contacts) {
+     if(err){
+         callback(err);
+     } else {
+         console.log(contacts);
+         for(var i=0; i< contacts.length;i++){
+           newObj = {firstname:contacts[i].firstname,telephone: contacts[i].telephone,city: contacts[i].city};
+             foundContacts.push(newObj);
+         }
+         callback(null,foundContacts);
+     }
+    });
+}
+
+module.exports.getContactByNum = function (num,callback) {
+    var newObj,mobile = num.substr(0,3),
+        foundContacts =[];
+    mobile = mobile.concat('.*');
+    console.log(mobile);
+    Contact.find({telephone: {$regex: mobile}}).exec(function (err,contacts) {
+        if(err){
+            callback(err);
+        } else {
+            console.log(contacts);
+            for(var i=0; i< contacts.length;i++){
+                newObj = {firstname:contacts[i].firstname,telephone: contacts[i].telephone};
+                foundContacts.push(newObj);
+            }
+            callback(null,foundContacts);
+        }
+    })
+}
+
+module.exports.getTopContacts = function (callback) {
+    var newObj,foundContacts=[];
+    Contact.find({}).limit(10).sort('firstname').exec(function (err,contacts) {
+        if(err){
+            callback(err);
+        }else{
+            console.log(contacts);
+            callback(null,contacts);
+        }
+    })
 }

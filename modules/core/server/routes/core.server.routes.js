@@ -17,4 +17,16 @@ module.exports = function(app){
         .delete(controller.deleteContact);
 
     app.param ('contactId', controller.validateContactIdAndForward)
+
+    app
+        .route('/api/city/:city')
+        .get(controller.findContactByCity);
+
+    app
+        .route('/api/areacode/:num')
+        .get(controller.getContactByNum);
+
+    app
+        .route('/api/topcontacts')
+        .get(controller.getTopContacts);
 }

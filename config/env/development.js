@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports =  {
-    db : {
+module.exports = {
+    db:{
         uri: 'mongodb://52.42.59.252/contacts-app',
-        options: {
+        options:{
             user: 'admin',
-            pass:'intersources123'
+            pass: 'intersources123'
         }
     }
 }

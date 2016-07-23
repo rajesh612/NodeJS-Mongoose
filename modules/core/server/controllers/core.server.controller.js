@@ -70,3 +70,40 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
  });
     next();
 }
+
+module.exports.findContactByCity = function (req,res) {
+    var city = req.params.city;
+    contactService.findContactByCity(city,function (err,foundContact) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to find contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(foundContact);
+            }
+    })
+}
+
+module.exports.getContactByNum = function (req,res) {
+    var num = req.params.num;
+    contactService.getContactByNum(num,function (err,foundContact) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to find contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(foundContact);
+        }
+    })
+}
+module.exports.getTopContacts = function (req,res) {
+    contactService.getTopContacts(function (err,foundContact) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to find contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(foundContact);
+        }
+    })
+}

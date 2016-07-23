@@ -31,10 +31,26 @@ var ContactSchema = new Schema({
         trim: true,
         unique:true,
         lowercase:true,
-        validate:[validateEmailStartegy, 'Email validation not passed']
+        validate:[validateEmailStartegy, 'Email is not valid']
+    },
+    telephone:{
+        type: String,
+        default: '',
+        trim: true,
+        unique:true,
+        lowercase:true,
+        validate:[validateFieldStrategy, 'Mobile number cannot be empty']
+    },
+    city:{
+        type: String,
+        default: '',
+        trim: true,
+        unique:false,
+        lowercase:true,
+        validate:[validateFieldStrategy, 'city cannot be empty']
     }
 });
 
-var Contact = mongoose.model('Contact', ContactSchema);
+var Contact = mongoose.model('RAJESH', ContactSchema);  //register collection for mongodb
 
 module.exports = Contact;
